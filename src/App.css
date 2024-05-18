@@ -20,6 +20,67 @@ body {
   width: 100%;
   height: 100%;
   position: relative;
-  background: radial-gradient(#151622, #030303);
+  background: radial-gradient(circle at center top, #3c4184, #030303);
 }
 
+.hud-return {
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  background-color: #ffbf00;
+  border-radius: 5px;
+  border: 9px rgb(255, 102, 0) solid;
+  color: rgb(255, 102, 0);
+  font-size: xx-large;
+  font-weight: bolder;
+  padding: 5px 20px;
+}
+
+.hud-speaker {
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+  background-color: #ffbf00;
+  border-radius: 5px;
+  border: 9px rgb(255, 102, 0) solid;
+  color: rgb(255, 102, 0);
+  font-size: small;
+  font-weight: bolder;
+  padding: 5px;
+}
+
+.hud-html {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  max-width: 95%;
+  max-height: 95%;
+  box-sizing: border-box;
+  padding: 20px;
+  background-color: #ffbf00;
+  color: black;
+  border-radius: 50px;
+  border: 9px rgb(255, 102, 0) solid;
+  font-size: larger;
+  overflow: auto;
+}
+
+.hud-html-content {
+  width: 45vw;
+}
+.hud-html-content.full {
+  width: 90vw;
+}
+
+.profile-pic {
+  float: left;
+  width: 50%;
+  margin-right: 10px;
+}
+
+.hud-html button {
+  background-color: rgb(255, 102, 0);
+  color: black;
+  min-width: 45%;
+  width: 100%;
+}
