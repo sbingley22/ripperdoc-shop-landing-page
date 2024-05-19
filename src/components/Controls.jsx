@@ -9,7 +9,7 @@ const targetQuaternion = new Quaternion()
 const targetEuler = new Euler(0, Math.PI/1, 0)
 const targetOrbit = new Vector3
 
-const Controls = ({ viewMode }) => {
+const Controls = ({ viewMode, isMobile }) => {
   const { camera } = useThree()
   const orbitRef = useRef()
   const lerping = useRef(false)
@@ -32,7 +32,7 @@ const Controls = ({ viewMode }) => {
     } else if (viewMode == "about") {
       orbitRef.current.enabled = false
       lerping.current = true
-      targetPosition.set(0.3, 1.0, -3.5)
+      targetPosition.set(0.3, 1.0, isMobile?-3.6:-3.5)
       targetQuaternion.setFromEuler(targetEuler.set(0, Math.PI, 0))
     } else if (viewMode == "surgery") {
       orbitRef.current.enabled = false

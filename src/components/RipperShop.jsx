@@ -9,7 +9,7 @@ import ServicesPage from "./ServicesPage"
 import ContactPage from "./ContactPage"
 import VisitPage from "./VisitPage"
 
-const RipperShop = () => {
+const RipperShop = ({ isMobile }) => {
   const container = useRef()
   const canvasRef = useRef()
 
@@ -49,17 +49,17 @@ const RipperShop = () => {
   }, [mute, song])
 
   // Disable mobile touch defaults
-  useEffect(() => {
-    document.body.addEventListener('touchmove', function(e) {
-      e.preventDefault()
-    }, { passive: false })
+  // useEffect(() => {
+  //   document.body.addEventListener('touchmove', function(e) {
+  //     e.preventDefault()
+  //   }, { passive: false })
 
-    return () => {
-      document.body.removeEventListener('touchmove', function(e) {
-        e.preventDefault()
-      }, { passive: false })
-    }
-  }, [])
+  //   return () => {
+  //     document.body.removeEventListener('touchmove', function(e) {
+  //       e.preventDefault()
+  //     }, { passive: false })
+  //   }
+  // }, [])
 
   const returnClicked = () => {
     setViewMode("default")
@@ -76,10 +76,10 @@ const RipperShop = () => {
 
   return (
     <div className="container" ref={container}>
-      <Canvas ref={canvasRef} shadows camera={{position: [4,1.5,4]}}>
+      <Canvas ref={canvasRef} shadows={isMobile? false: true} dpr={isMobile? 0.5 : 1} camera={{position: [4,1.5,4]}}>
         <Suspense>
 
-          <Controls viewMode={viewMode} />
+          <Controls viewMode={viewMode} isMobile={isMobile} />
 
           <Environment
             preset="city"

@@ -104,6 +104,18 @@ body {
   padding-top: 5px;
 }
 
+@media (max-width: 768px) {
+  .hud-html-content {
+    width: 75vw;
+  }
+  .hud-html-content.small {
+    width: auto;
+  }
+  .hud-html-content.full {
+    width: 75vw;
+  }
+}
+
 select {
   font-size: larger;
 }
