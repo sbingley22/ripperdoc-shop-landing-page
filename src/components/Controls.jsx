@@ -37,8 +37,8 @@ const Controls = ({ viewMode }) => {
     } else if (viewMode == "surgery") {
       orbitRef.current.enabled = false
       lerping.current = true
-      targetPosition.set(1.5, 1.5, -0.25)
-      targetQuaternion.setFromEuler(targetEuler.set(-0.5, Math.PI/2.4, 0.0, 'YXZ'))
+      targetPosition.set(1.2, 1.8, -0.25)
+      targetQuaternion.setFromEuler(targetEuler.set(-0.8, Math.PI/2.4, 0.0, 'YXZ'))
     }
 
   // eslint-disable-next-line react-hooks/exhaustive-deps

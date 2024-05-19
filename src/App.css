@@ -42,11 +42,15 @@ body {
   bottom: 20px;
   background-color: #ffbf00;
   border-radius: 5px;
-  border: 9px rgb(255, 102, 0) solid;
+  border: 1px rgb(255, 102, 0) solid;
   color: rgb(255, 102, 0);
   font-size: small;
   font-weight: bolder;
   padding: 5px;
+}
+
+.hud-speaker img {
+  width: 25px;
 }
 
 .hud-html {

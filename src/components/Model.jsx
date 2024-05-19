@@ -9,7 +9,7 @@ import { Vector2, Vector3, Euler, Raycaster } from "three"
 const direction = new Vector3()
 const rotation = new Euler()
 
-const Model = ({ setViewMode, setViewHtml, setSong }) => {
+const Model = ({ setViewMode, setViewHtml, setSong, setMute }) => {
   const { scene, nodes, animations } = useGLTF(glbFile)
   const { actions, mixer } = useAnimations(animations, scene)
   
@@ -103,8 +103,12 @@ const Model = ({ setViewMode, setViewHtml, setSong }) => {
     } else if (v.includes(parent)) {
       pointer = true
       if (clicked) {
-        setViewHtml("v")
-        setViewMode("surgery")
+        if (animV == "v idle") {
+          setViewHtml("v")
+          setViewMode("surgery")
+          setAnimV("v idle to chair")
+        }
+        
       }
     } else if (rebecca.includes(parent)) {
       pointer = true
@@ -148,7 +152,17 @@ const Model = ({ setViewMode, setViewHtml, setSong }) => {
       pointer = true
       if (clicked) {
         setViewMode("roof")
-        setSong(prev => prev + 1 > 2 ? 0 : prev + 1)
+        setMute(false)
+        //setSong(prev => prev + 1 > 2 ? 0 : prev + 1)
+        setSong(prev => {
+          const newIndex = prev + 1 > 2 ? 0 : prev + 1;
+          if (prev + 1 > 2) {
+              setAnimBeca("beca idle")
+          } else {
+            setAnimBeca("beca dance")
+          }
+          return newIndex;
+        })
       }
     }
 
@@ -189,7 +203,7 @@ const Model = ({ setViewMode, setViewHtml, setSong }) => {
   // Mixer
   useEffect(()=>{
     const oneShots = [
-      "maine wave",
+      "maine wave", "v idle to chair", "v chair to idle"
     ]
 
     oneShots.forEach( (shot) => {
@@ -199,6 +213,8 @@ const Model = ({ setViewMode, setViewHtml, setSong }) => {
 
     mixer.addEventListener('finished', () => {
       if (animMaine == "maine wave") setAnimMaine("maine idle")
+        if (animV == "v idle to chair") setAnimV("v chair")
+        else if (animV == "v chair to idle") setAnimV("v idle")
     })
 
     return () => mixer.removeEventListener('finished')
@@ -232,6 +248,7 @@ const Model = ({ setViewMode, setViewHtml, setSong }) => {
       if (nodeName == "ground") {
         const cv = 0.1
         node.material.color.set(cv,cv,cv)
+        node.receiveShadow = true
       } else if (nodeName == "cybernetic_legs" || nodeName == "cybernetic_arms") {
         node.material.emissiveMap = node.material.map.clone()
         node.material.emissive.set(.1,0,0)
@@ -251,7 +268,7 @@ const Model = ({ setViewMode, setViewHtml, setSong }) => {
       if (node.type == "SkinnedMesh" || node.type == "Mesh") {
         node.frustumCulled = false
         node.castShadow = true
-        node.receiveShadow = true
+        //node.receiveShadow = true
       }
     })
   // eslint-disable-next-line react-hooks/exhaustive-deps

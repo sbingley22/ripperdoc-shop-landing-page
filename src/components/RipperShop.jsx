@@ -20,11 +20,9 @@ const RipperShop = () => {
   const bgmHouseRef = useRef()
 
   useEffect(() => {
-    if (mute) return
-
     const volume = 0.4
     bgmCityRef.current.currentTime = 0
-    bgmCityRef.current.volume = volume
+    bgmCityRef.current.volume = 1
     bgmCityRef.current.pause()
     bgmResistRef.current.currentTime = 0
     bgmResistRef.current.volume = volume
@@ -32,6 +30,8 @@ const RipperShop = () => {
     bgmHouseRef.current.currentTime = 0
     bgmHouseRef.current.volume = volume
     bgmHouseRef.current.pause()
+
+    if (mute) return
 
     if (song == 0) bgmCityRef.current.play()
     else if (song == 1) bgmResistRef.current.play()
@@ -89,6 +89,7 @@ const RipperShop = () => {
             setViewMode={setViewMode} 
             setViewHtml={setViewHtml} 
             setSong={setSong}
+            setMute={setMute}
           />
 
         </Suspense>
@@ -161,7 +162,7 @@ const RipperShop = () => {
         <source src="./audio/yourHouse.m4a" type="audio/mp4" />
       </audio>
       <audio ref={bgmCityRef} loop>
-        <source src="./audio/rebelPath.mp3" type="audio/mp3" />
+        <source src="./audio/city.mp3" type="audio/mp3" />
       </audio>
       <audio ref={bgmResistRef} loop>
         <source src="./audio/resistDisorder.m4a" type="audio/mp4" />
