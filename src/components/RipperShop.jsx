@@ -5,6 +5,9 @@ import { Suspense, useEffect, useRef, useState } from "react"
 import Controls from './Controls'
 import { Environment } from "@react-three/drei"
 import Model from "./Model"
+import ServicesPage from "./ServicesPage"
+import ContactPage from "./ContactPage"
+import VisitPage from "./VisitPage"
 
 const RipperShop = () => {
   const container = useRef()
@@ -12,6 +15,12 @@ const RipperShop = () => {
 
   const [viewMode, setViewMode] = useState("default")
   const [viewHtml, setViewHtml] = useState(null)
+  const [vOutfit, setVOutfit] = useState({
+    hair: "Wavy Punk",
+    optics: false,
+    jacket: true,
+    cyberArms: false
+  })
 
   const [song, setSong] = useState(0)
   const [mute, setMute] = useState(true)
@@ -57,6 +66,14 @@ const RipperShop = () => {
     setViewHtml(null)
   }
 
+  const handleInputChange = (event) => {
+    const { name, value, type, checked } = event.target;
+    setVOutfit(prevState => ({
+      ...prevState,
+      [name]: type === 'checkbox' ? checked : value
+    }));
+  };
+
   return (
     <div className="container" ref={container}>
       <Canvas ref={canvasRef} shadows camera={{position: [4,1.5,4]}}>
@@ -86,16 +103,18 @@ const RipperShop = () => {
           />
 
           <Model 
+            viewMode={viewMode}
             setViewMode={setViewMode} 
             setViewHtml={setViewHtml} 
             setSong={setSong}
             setMute={setMute}
+            vOutfit={vOutfit}
           />
 
         </Suspense>
       </Canvas>
 
-      {viewMode == "about" || viewMode == "surgery" &&
+      {(viewMode != "default") &&
         <button className="hud-return" onClick={returnClicked}>{"<"}</button>
       }
 
@@ -106,9 +125,53 @@ const RipperShop = () => {
 
       {viewHtml && <div className="hud-html">
         <button onClick={()=>setViewHtml(null)}>RETURN</button>
+
+        {viewHtml == "services" && <ServicesPage /> }
+        {viewHtml == "contact" && <ContactPage /> }
+        {viewHtml == "visit" && <VisitPage /> }
         
         {viewHtml == "v" &&
-          <div className="hud-html-content">
+          <div className="hud-html-content small">
+            <div>
+              <label htmlFor="hair">Hair: </label>
+              <select name="hair" id="hair" value={vOutfit.hair} onChange={handleInputChange}>
+                <option value="Wavy Punk">Wavy Punk</option>
+                <option value="Wavy">Wavy</option>
+                <option value="Tied Back">Tied Back</option>
+                <option value="Pig Tails">Pig Tails</option>
+                <option value="Parted">Parted</option>
+              </select>
+            </div>
+            <div>
+              <label htmlFor="optics">Optics: </label>
+              <input
+                type="checkbox"
+                name="optics"
+                id="optics"
+                checked={vOutfit.optics}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div>
+              <label htmlFor="jacket">Jacket: </label>
+              <input
+                type="checkbox"
+                name="jacket"
+                id="jacket"
+                checked={vOutfit.jacket}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div>
+              <label htmlFor="cyberArms">Cyber Arms: </label>
+              <input
+                type="checkbox"
+                name="cyberArms"
+                id="cyberArms"
+                checked={vOutfit.cyberArms}
+                onChange={handleInputChange}
+              />
+            </div>
           </div>
         }
 

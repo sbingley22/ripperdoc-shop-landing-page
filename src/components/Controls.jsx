@@ -32,13 +32,13 @@ const Controls = ({ viewMode }) => {
     } else if (viewMode == "about") {
       orbitRef.current.enabled = false
       lerping.current = true
-      targetPosition.set(0, 1.0, -3.5)
+      targetPosition.set(0.3, 1.0, -3.5)
       targetQuaternion.setFromEuler(targetEuler.set(0, Math.PI, 0))
     } else if (viewMode == "surgery") {
       orbitRef.current.enabled = false
       lerping.current = true
-      targetPosition.set(1.2, 1.8, -0.25)
-      targetQuaternion.setFromEuler(targetEuler.set(-0.8, Math.PI/2.4, 0.0, 'YXZ'))
+      targetPosition.set(1.2, 1.8, -0.05)
+      targetQuaternion.setFromEuler(targetEuler.set(-0.8, Math.PI/2.1, 0.0, 'YXZ'))
     }
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
